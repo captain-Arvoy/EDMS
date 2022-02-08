@@ -264,7 +264,7 @@ def employee_editor():
     def retr():
         dat=[]
         dat=False
-        par=input('\rHow you want to search by,\nname,\nby gender,\nby designation,\nby salary: ')
+        par=input('\rHow you want to search by,\nname,\nby gender,\nby designation,\nby salary:\n ')
         if par=='salary':
             rng=t.Tk()
             def gtrng():
@@ -321,14 +321,15 @@ def employee_editor():
         else:
             empnm=input(f'Enter the {par} of the employee: ')
             try:
-                int(empnm)
-                sql=f"Select * from employee where {par}={empnm}"
+                emp=int(empnm)
+                sql=f"Select * from employee where {par}='{emp}'"
                 curso.execute(sql)
                 dat=curso.fetchall()
             except:
+                empnm=empnm.upper()
                 sql=f"Select * from employee where {par}='{empnm}'"
-                dat=curso.fetchall()
                 curso.execute(sql)
+                dat=curso.fetchall()
         global p,ac
         ac=0
         if dat:
