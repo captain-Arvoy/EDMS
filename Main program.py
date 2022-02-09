@@ -37,8 +37,8 @@ def retry():
 
  # why we haven't intialised this line in the beginning because if we do so then python would make the tk window without
 # packing the widgets in the while loop basically I have to create the window after the native verification window 
+choice=1
 def main():
-    choice=1
     while choice:
         def opndb():
             db=t.Tk()
@@ -64,6 +64,7 @@ def main():
             showinfo('Devolopers message','Thank you for choosing EDMS, Give us Full marks! XD')
             global choice
             choice=False
+            main()
         def one():
             pop.destroy()
             newemployee()
@@ -140,8 +141,34 @@ sql='drop table if exists employee;'
 curso.execute(sql)
 sql="Create table employee(S_no integer(5) primary key,nme varchar(75),age integer,gender char(75),designation varchar(70),salary integer(75));"
 curso.execute(sql)
+sn=0
+accc=0
+def edm():
+    global sn,accc
+    sn+=1
+    inp=''
+    while inp!='dn':
+        accc+=1
+        if accc%4==0:      
+            showinfo('Database manager','If you want to exit then type "quit" or "exit" in the name field')
+        try:
+             nam=input('Enter the name of the employee:')
+             if nam=='quit' or nam=='exit':
+                 main()
+             age=int(input('Enter the age of the person:'))
+             gen=input('Enter the gender of the person:')
+             desegn=input('Enter the designation of the employee:')
+             desegn=desegn.capitalize()
+             sal=int(input('Enter the salary of the employee:'))
+             sql3=f"insert into employee values({sn},'{nam}',{age},'{gen}','{desegn}',{sal});"
+             curso.execute(sql3)
+             print("---------------inserted------------")
+        except Exception as e:
+             showwarning('Input error',f'{e}')
+             print("------cancelling entry-------")
+
 #-----------------Table created------------------------------------------------------------------------------------------------------
-wish=input('Do you want to create machine generated \'employee\' table:\n ')
+wish=input('Do you want to create machine generated \'employee\' table:\n')
 if wish=='yo'or wish=='yes' or wish=='y' or wish=='[y]' or wish=='yep':
     nam1=['Yashoda','Dhruv','Abhay']
     midnm=['nandan','vishnu','Aditya']
@@ -167,6 +194,8 @@ if wish=='yo'or wish=='yes' or wish=='y' or wish=='[y]' or wish=='yep':
             print(f'loading {i//3}%',end='\r')
         elif i>100:
             print(f'loading {i//3}%',end='\r ')
+else:
+    edm()
 
 #--------------------------database created----------------------------------------------------------------------------------------------------------------------------------------      
 def newemployee():
@@ -198,8 +227,8 @@ def newemployee():
             desegn=desegn.capitalize()
             sal=int(input('Enter the salary of the employee:'))
             sql3=f"insert into employee values({sno},'{nam}',{age},'{gen}','{desegn}',{sal});"
-            print(f"inserted.")
             curso.execute(sql3)
+            print("-------inserted--------")
        except Exception as e:
             showwarning('Input error',f'{e}')
             print("------cancelling entry-------")
@@ -398,6 +427,7 @@ while choice:
         showinfo('Devolopers message','Thank you for choosing EDMS, Give us Full marks! XD')
         global choice
         choice=False
+        main()
     def one():
         pop2.destroy()
         newemployee()
