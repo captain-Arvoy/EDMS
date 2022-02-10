@@ -153,14 +153,19 @@ def edm():
             showinfo('Database manager','If you want to exit then type "quit" or "exit" in the name field')
         try:
              nam=input('Enter the name of the employee:')
-             if nam=='quit' or nam=='exit':
+             if nam.lower()=='quit' or nam.lower()=='exit':
                  return None
              age=int(input('Enter the age of the person:'))
              gen=input('Enter the gender of the person:')
+             gen3='classified'
+             if gen.lower()=='male' or gen.lower()=='m':
+                 gen3='M'
+             elif gen.lower()=='female' or gen.lower()=='f':
+                 gen3='F'
              desegn=input('Enter the designation of the employee:')
              desegn=desegn.capitalize()
              sal=int(input('Enter the salary of the employee:'))
-             sql3=f"insert into employee values({sn},'{nam}',{age},'{gen}','{desegn}',{sal});"
+             sql3=f"insert into employee values({sn},'{nam}',{age},'{gen},{gen3}','{desegn}',{sal});"
              curso.execute(sql3)
              print("---------------inserted------------")
         except Exception as e:
@@ -253,7 +258,7 @@ def employeeview():
         print("reloading....")
         
         employeeview()
-    pref=input('By which parameters you  want to view:\n1.name \n2.gender \n3.designation \n4.salary\n\r(Enter just option name)\n\r')
+    pref=input('By which parameters you  want to view:\n1.name \n2.gender[M/F] \n3.designation \n4.salary\n\r(Enter just option name)\n\r')
     if pref=='name':
         usein=input('Enter the username: ')
     else:
