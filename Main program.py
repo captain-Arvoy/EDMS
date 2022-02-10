@@ -145,22 +145,27 @@ sn=0
 accc=0
 def edm():
     global sn,accc
-    sn+=1
     inp=''
     while inp!='dn':
+        sn+=1
         accc+=1
         if accc%4==0:      
             showinfo('Database manager','If you want to exit then type "quit" or "exit" in the name field')
         try:
              nam=input('Enter the name of the employee:')
-             if nam=='quit' or nam=='exit':
-                 main()
+             if nam.lower()=='quit' or nam.lower()=='exit':
+                 return None
              age=int(input('Enter the age of the person:'))
              gen=input('Enter the gender of the person:')
+             gen3='classified'
+             if gen.lower()=='male' or gen.lower()=='m':
+                 gen3='M'
+             elif gen.lower()=='female' or gen.lower()=='f':
+                 gen3='F'
              desegn=input('Enter the designation of the employee:')
              desegn=desegn.capitalize()
              sal=int(input('Enter the salary of the employee:'))
-             sql3=f"insert into employee values({sn},'{nam}',{age},'{gen}','{desegn}',{sal});"
+             sql3=f"insert into employee values({sn},'{nam}',{age},'{gen},{gen3}','{desegn}',{sal});"
              curso.execute(sql3)
              print("---------------inserted------------")
         except Exception as e:
